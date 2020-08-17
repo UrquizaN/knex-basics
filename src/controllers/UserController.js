@@ -1,9 +1,13 @@
 const knex = require('../database')
 
 module.exports = {
-    async getUsers(req, res) {
-        const results = await knex('users')
-        return res.json(results)
+    async getUsers(req, res, next) {
+        try {
+            const results = await knex('users')
+            return res.json(results)
+        } catch (error) {
+            next(error)
+        }
     },
 
     async createUser(req, res, next){
@@ -13,7 +17,7 @@ module.exports = {
                 username
             }) 
 
-           return res.status(201).send('User created successfully')
+           return res.status(201).send('User created')
 
         } catch (error) {
             next(error)
