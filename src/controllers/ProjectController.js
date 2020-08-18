@@ -44,5 +44,32 @@ module.exports = {
         }
     },
 
-    
+    async updateProject(req, res, next) {
+        try {
+            const { title } = req.body
+            const { id } = req.params
+            const updated_at = knex.fn.now()
+
+            await knex('projects').update({
+                title,
+                updated_at
+            }).where({ id })
+
+            return res.send('Project updated!')
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    async deleteProject(req, res, next) {
+        try {
+            const { id } = req.params
+
+            await knex('projects').where({ id }).del()
+
+            return res.send('Project deleted!')
+        } catch (error) {
+            next(error)
+        }
+    }
 } 

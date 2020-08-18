@@ -12,6 +12,8 @@ routes
 
 .get('/projects', ProjectController.getProjects)
 .post('/projects', ProjectController.createProject)
+.put('/projects/:id', ProjectController.updateProject)
+.delete('/projects/:id', ProjectController.deleteProject)
 
 
 module.exports = routes
